@@ -217,7 +217,7 @@ function calcHash() {
                     .join('')
         );
         log('Elapsed: ' + Math.round(elapsed) + 'ms');
-        location.reload()
+        log('To load another argon2 implementation, please refresh the page first!!');
     } else {
         try {
             if (!err) {
