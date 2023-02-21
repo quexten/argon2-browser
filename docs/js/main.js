@@ -7,15 +7,14 @@ document
     .getElementById('btnCalcWasm')
     .addEventListener('click', calc(calcWasm));
 document
-    .getElementById('btnCalcWasmWorker')
-    .addEventListener('click', function () {
-        calcWorker('wasm');
-    });
+    .getElementById('btnCalcWasmThreads')
+    .addEventListener('click', calc(calcWasmThreaded));
 document
     .getElementById('btnCalcWasmSimd')
-    .addEventListener('click', function () {
-        calcWorker('simd');
-    });
+    .addEventListener('click', calc(calcSimd));
+document
+    .getElementById('btnCalcWasmSimdThreads')
+    .addEventListener('click', calc(calcWasmSimdThreaded));
 
 function loadScript(src, onload, onerror) {
     var el = document.createElement('script');

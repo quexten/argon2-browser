@@ -22,6 +22,14 @@ function calcSimd() {
     calcBinaryen('native-wasm', { simd: true });
 }
 
+function calcWasmThreaded() {
+    calcBinaryen('native-wasm', { threaded: true });
+}
+
+function calcWasmSimdThreaded() {
+    calcBinaryen('native-wasm', { simd: true, threaded: true });
+}
+
 function calcBinaryen(method, options) {
     clearLog();
 
@@ -66,6 +74,7 @@ function calcBinaryen(method, options) {
     const wasmMemory = new WebAssembly.Memory({
         initial: initialMemory,
         maximum: totalMemory,
+        shared: options && options.threaded,
     });
 
     global.Module = {
@@ -80,21 +89,31 @@ function calcBinaryen(method, options) {
     };
 
     var wasmFileName = 'argon2.wasm';
-    if (options && options.simd) {
+    if (options && options.simd && !options.threaded) {
         wasmFileName = 'argon2-simd.wasm';
+    } else if (options && options.threaded && !options.simd) {
+        wasmFileName = 'argon2-threads.wasm';
+    } else if (options && options.threaded && options.simd) {
+        wasmFileName = 'argon2-simd-threads.wasm';
     }
 
     log('Loading wasm...');
     var xhr = new XMLHttpRequest();
     xhr.open('GET', root + 'dist/' + wasmFileName, true);
     xhr.responseType = 'arraybuffer';
+
+    var jsFileName = 'argon2.js';
+    if (options && options.threaded) {
+        jsFileName = 'argon2-threads.js';
+    }
+
     xhr.onload = function () {
         global.Module.wasmBinary = xhr.response;
         global.Module.postRun = calcHash;
         var ts = now();
         log('Wasm loaded, loading script...');
         loadScript(
-            root + 'dist/argon2.js',
+            root + 'dist/' + jsFileName,
             function () {
                 log('Script loaded in ' + Math.round(now() - ts) + 'ms');
                 log('Calculating hash...');
@@ -198,6 +217,7 @@ function calcHash() {
                     .join('')
         );
         log('Elapsed: ' + Math.round(elapsed) + 'ms');
+        location.reload()
     } else {
         try {
             if (!err) {

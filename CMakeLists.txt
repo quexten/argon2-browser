@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.12)
 
 project(agron2)
 
-add_definitions(-DARGON2_NO_THREADS)
-
 set(ARCHIVE_OUTPUT_DIRECTORY dist)
 set(LIBRARY_OUTPUT_DIRECTORY dist)
 set(RUNTIME_OUTPUT_DIRECTORY dist)
