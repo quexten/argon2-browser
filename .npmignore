@@ -1,6 +1,10 @@
 *
 !dist/argon2.js
+!dist/argon2-threads.js
+!dist/argon2.worker.js
 !dist/argon2-bundled.min.js
 !dist/argon2.wasm
 !dist/argon2-simd.wasm
+!dist/argon2-threads.wasm
+!dist/argon2-simd-threads.wasm
 !lib/*.js

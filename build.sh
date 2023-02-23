@@ -11,7 +11,9 @@ mkdir docs/dist
 ./clean-cmake.sh
 ARGON_JS_BUILD_BUILD_WITH_SIMD=1 ARGON_JS_BUILD_BUILD_WITH_THREADS=1 ./build-wasm.sh
 cp dist/argon2.js docs/dist/argon2-threads.js
+cp dist/argon2.js dist/argon2-threads.js
 cp dist/argon2.wasm docs/dist/argon2-simd-threads.wasm
+cp dist/argon2.wasm dist/argon2-simd-threads.wasm
 cp dist/argon2.worker.js docs/dist/argon2.worker.js
 
 ./clean-cmake.sh
