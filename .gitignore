@@ -23,7 +23,6 @@ Argon2.VC.opendb
 Makefile
 examples/**/package-lock.json
 node_modules/
-dist/
 examples/**/dist/
 test/**/package-lock.json
 test/webpack/node_modules/
