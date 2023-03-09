@@ -4,3 +4,4 @@
 !dist/argon2.wasm
 !dist/argon2-simd.wasm
 !lib/*.js
+!lib/*.d.ts
